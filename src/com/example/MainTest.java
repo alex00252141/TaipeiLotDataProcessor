@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.type.FeeInfo;
 import com.google.gson.Gson;
 
 public class MainTest {

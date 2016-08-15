@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.type.FeeInfo;
 import com.google.gson.annotations.SerializedName;
 
 public class EachData {
