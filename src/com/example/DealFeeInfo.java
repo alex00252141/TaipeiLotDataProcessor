@@ -33,7 +33,7 @@ public class DealFeeInfo {
 						//eachFeeInfo.getcarFeeInfo().getWeekday().setIntervalInfo(Period,Fee);
 						//eachFeeInfo
 
-						System.out.println(Period + Fee);
+						//System.out.println(Period + Fee);
 					}
 				}
 				if (jobject.has("Holiday")) {
