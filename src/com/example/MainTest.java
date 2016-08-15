@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.save.FileDataManager;
 import com.example.type.FeeInfo;
 import com.google.gson.Gson;
 
@@ -8,6 +9,8 @@ public class MainTest {
 		TaipeiData data = new TaipeiData();
 		DealFeeInfo deal = new DealFeeInfo();
 		
+		//FileDataManager fileDataManger = new FileDataManager("data");
+	
 		//deal.dealFareInfo(data.getAllData());
 		deal.dealpayex(data.getAllData());
 		

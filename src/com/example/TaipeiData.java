@@ -18,72 +18,53 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 public class TaipeiData {
-	private String data="";
-	private String FILENAME;
-	private  ArrayList<EachData> allData;
-	
-	public TaipeiData() {
-		FILENAME = "TCMSV_alldesc.json";
-		
-		try{
-			FileInputStream fin = new FileInputStream(FILENAME);
-		    InputStreamReader xover = new InputStreamReader(fin);
-		    BufferedReader is = new BufferedReader(xover);
-		    
-		    data += is.readLine();//read json
+	private String data = "";
+	private final String FILENAME = "TCMSV_alldesc";
+	private ArrayList<EachData> allData;
+	private Gson gson ;
 
-		    allData = new ArrayList<EachData>();
-			
-		    JsonElement jelement = new JsonParser().parse(data);
-		    JsonObject  jobject = jelement.getAsJsonObject();
+	public TaipeiData() {
+		gson = new GsonBuilder().create();
+		
+		try {
+			FileInputStream fin = new FileInputStream(FILENAME);
+			InputStreamReader xover = new InputStreamReader(fin);
+			BufferedReader is = new BufferedReader(xover);
+
+			data += is.readLine();// read json
+
+			allData = new ArrayList<EachData>();
+
+			JsonObject jobject = new JsonParser().parse(data).getAsJsonObject();
 			jobject = jobject.getAsJsonObject("data");
 			JsonArray jarray = jobject.getAsJsonArray("park");
-		
-			for(int i = 0;i<jarray.size();++i){
+
+			for (int i = 0; i < jarray.size(); ++i) {
 				jobject = jarray.get(i).getAsJsonObject();
-				
-				Gson gson = new GsonBuilder().create();
+
 				allData.add(gson.fromJson(jobject, EachData.class));
-				/*
-				jsonArr.add(
-						new EachData(jobject.get("id").toString(), 
-								jobject.get("area").toString(), 
-								jobject.get("name").toString(), 
-								jobject.get("type").toString(), 
-								jobject.get("summary").toString(), 
-								jobject.get("address").toString(), 
-								jobject.get("tw97x").toString(),
-								jobject.get("tw97y").toString(), 
-								jobject.get("payex").toString(), 
-								jobject.get("totalcar").toString(), 
-								jobject.get("totalmotor").toString(), 
-								jobject.get("servicetime").toString()));
-				*/
-					if(jobject.getAsJsonObject("FareInfo")!=null){
-						//System.out.println(jobject.getAsJsonObject("FareInfo"));
-						allData.get(i).setFareInfo(jobject.getAsJsonObject("FareInfo").toString());
-						//System.out.println(jsonArr.get(i).getFareInfo());
-					}
+
+				if (jobject.getAsJsonObject("FareInfo") != null) {
+					allData.get(i).setFareInfo(jobject.getAsJsonObject("FareInfo").toString());
+				}
 			}
-		    
-		    
-		}catch(FileNotFoundException e){
+
+		} catch (FileNotFoundException e) {
 			System.out.printf("file not find");
-		}catch(IOException e){
+		} catch (IOException e) {
 			System.out.printf("IO error");
-		}catch(JsonSyntaxException ex) {
-		    //System.out.println(ex.getMessage());
-		}
-		catch(Exception e){
+		} catch (JsonSyntaxException ex) {
+			// System.out.println(ex.getMessage());
+		} catch (Exception e) {
 			System.out.printf(e.getMessage());
 		}
 	}
-	
-	public ArrayList<EachData> getAllData(){
+
+	public ArrayList<EachData> getAllData() {
 		return allData;
 	};
-	
-	public String toString(){
+
+	public String toString() {
 		return data;
 	}
 }
