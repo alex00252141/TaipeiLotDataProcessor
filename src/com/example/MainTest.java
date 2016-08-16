@@ -7,12 +7,12 @@ import com.google.gson.Gson;
 public class MainTest {
 	public static void main(String[] args) {
 		TaipeiData data = new TaipeiData();
-		DealFeeInfo deal = new DealFeeInfo();
+		DealFeeInfo dealFeeInfo = new DealFeeInfo();
 		
 		//FileDataManager fileDataManger = new FileDataManager("data");
 	
 		//deal.dealFareInfo(data.getAllData());
-		deal.dealpayex(data.getAllData());
+		dealFeeInfo.deal(data.getAllData());
 		
 		/*
 		FeeInfo test = new FeeInfo();

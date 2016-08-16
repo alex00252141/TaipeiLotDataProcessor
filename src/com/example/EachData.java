@@ -144,8 +144,8 @@ public class EachData {
 	public String getFareInfo(){
 		return this.fareInfo ;
 	}
-	public void setFareInfo(String FareInfo){
-		this.fareInfo =FareInfo;
+	public void setFareInfo(String eachFeeInfo){
+		this.fareInfo =eachFeeInfo;
 	}
 	
 	public FeeInfo getInfo(){
