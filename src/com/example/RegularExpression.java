@@ -8,10 +8,10 @@ import com.example.type.*;
 
 public class RegularExpression {
 	private String testPreviousRuler = "[(](\\d+)[-|~](\\d+)時?[)]"; // previousHoursInfo
-	private String testFeeRuler = "(\\d+)[元]+[/]?[時|次]?"; // FeeInfo
+	private String testFeeRuler = "[汽車]?(\\d+)[元]?+[/]?[時|次]?"; // FeeInfo
 	private String testFeeCycleRuler = "[未滿1小時以1小時|停車逾1小時以上]"; // feeCycleFeeInfo
-	//  關鍵字 逾1小時以上者 共770筆數
-	
+	// 關鍵字 逾1小時以上者 共770筆數
+
 	private ArrayList<IntervalInfoObject> intervalInfo;
 	private PreviousHoursInfoObject previousHoursInfo;
 
@@ -37,8 +37,8 @@ public class RegularExpression {
 		previousRuler(payex);
 		return intervalInfo;
 	}
-	
-	public PreviousHoursInfoObject getPreviousHoursInfo(String payex){
+
+	public PreviousHoursInfoObject getPreviousHoursInfo(String payex) {
 		previousHoursInfo = new PreviousHoursInfoObject();
 		feeCycleRuler(payex);
 		return previousHoursInfo;
@@ -52,7 +52,8 @@ public class RegularExpression {
 			// m.group(1) 開始時間 m.group(2) 結束時間
 			System.out.println("Found startPrevious: " + m.group(1));
 			System.out.println("Found endPrevious: " + m.group(2));
-			//還需要再調整
+			// 還需要再調整
+			info.setinterval(m.group(1) + "~" + m.group(2));
 			info.setTimeChargeParkingFee(feeRuler(payex));
 			System.out.println("Found fee: " + feeRuler(payex));
 			++testYES;
@@ -87,37 +88,42 @@ public class RegularExpression {
 			// set "previousHoursFeeCycle": 30
 			result = "30";
 		} else if (payex.contains("逾1小時以上者")) {
+
+			String[] payexSub = payex.split("逾1小時以上者", 2);
+			// example: 停車未滿1小時以1小時計，逾1小時以上者，未滿半小時以半小時計
+			// payexSub[0]:停車未滿1小時以1小時計，
+			// payexSub[1]:，未滿半小時以半小時計
 			
-			String[] payexSub = payex.split("逾1小時以上者",2);
-			//example: 停車未滿1小時以1小時計，逾1小時以上者，未滿半小時以半小時計
-			//payexSub[0]:停車未滿1小時以1小時計，
-			//payexSub[1]:，未滿半小時以半小時計
+			// 在前段包含"未滿30分鐘" 皆為未滿30分鐘免費 共五筆
+			if (payexSub[0].contains("未滿30分鐘")){
+				previousHoursInfo.setStartCharging("30"); //設定前30分鐘免費
+			}else{
+				previousHoursInfo.setStartCharging("0");
+			}
 			
-			// 第一小時以小時計算
-			if (payexSub[0].contains("未滿1小時以1小時計")) {
+			// 第一小時以小時計算 660筆
+			if (payexSub[0].contains("未滿1小時以1小時")) {
 				// set "previousHoursInfo": {
 				// "startCharging": 60,
 				// "previousHoursAmountFee": ,
 				// "previousHoursFeeCycle": 60
 				// },
-				previousHoursInfo.setStartCharging("60");
 				previousHoursInfo.setPreviousHoursAmountFee(feeRuler(payex));
 				previousHoursInfo.setPreviousHoursFeeCycle("60");
 
 				// System.out.println(payex);
 			} else {
 				// 第一小時以半小時計算
-				previousHoursInfo.setStartCharging("60");
 				previousHoursInfo.setPreviousHoursAmountFee(feeRuler(payex));
 				previousHoursInfo.setPreviousHoursFeeCycle("30");
 			}
-			
-			if(payexSub[1].contains("未滿半小時以半小時計")){
+
+			if (payexSub[1].contains("未滿半小時以半小時計")) {
 				result = "30";
-			}else{
+			} else {
 				result = "60";
 			}
-			
+
 		} else {
 			// only one information(Fee Cycle),therefore I want to process
 			// handily.

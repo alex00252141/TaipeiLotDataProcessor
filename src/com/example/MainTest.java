@@ -24,6 +24,7 @@ public class MainTest {
 
 		Gson g = new Gson();
 		for (int i = 0; i < allDataFeeInfo.size(); ++i) {
+			System.out.println(data.getAllData().get(i).getPayex());
 			caculationTest(g.toJson(allDataFeeInfo.get(i)).toString());
 		}
 
