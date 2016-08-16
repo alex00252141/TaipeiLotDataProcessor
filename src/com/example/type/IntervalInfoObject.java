@@ -2,19 +2,19 @@ package com.example.type;
 
 public class IntervalInfoObject {
 	private String interval;
-	private String weekdayFee;
+	private String timeChargeParkingFee;
 	private String feeCycle;
 	
 	public IntervalInfoObject() {
 		// TODO Auto-generated constructor stub
 		interval = null;
-		weekdayFee = null;
+		timeChargeParkingFee = null;
 		feeCycle = null;
 	}
-	public IntervalInfoObject(String _interval,String _weekdayFee, String _feeCycle) {
+	public IntervalInfoObject(String _interval,String _timeChargeParkingFee, String _feeCycle) {
 		// TODO Auto-generated constructor stub
 		interval = _interval;
-		weekdayFee = _weekdayFee;
+		timeChargeParkingFee = _timeChargeParkingFee;
 		feeCycle = _feeCycle;
 	}
 
@@ -27,12 +27,12 @@ public class IntervalInfoObject {
 		this.interval = interval;
 	}
 
-	public String getweekdayFee() {
-		return weekdayFee;
+	public String getTimeChargeParkingFee() {
+		return timeChargeParkingFee;
 	}
 
-	public void setweekdayFee(String weekdayFee) {
-		this.weekdayFee = weekdayFee;
+	public void setTimeChargeParkingFee(String timeChargeParkingFee) {
+		this.timeChargeParkingFee = timeChargeParkingFee;
 	}
 
 	public String getfeeCycle() {
