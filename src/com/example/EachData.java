@@ -39,7 +39,7 @@ public class EachData {
 	
 	public EachData( String originalId, String taiwanArea, String name ,
 			String type,String summary,String address,String xAxis,String yAxis,
-			String payex,String totalCar,String totalMotor,String serviceTime) {
+			String tel,String payex,String totalCar,String totalMotor,String serviceTime) {
 		
 		setOriginalId(originalId);
 		setTaiwanArea(taiwanArea);
@@ -49,12 +49,22 @@ public class EachData {
 		setAddress(address);
 		setXAxis(xAxis);
 		setYAxis(yAxis);
+		setTel(tel);
 		setPayex(payex);
 		setTotalCar(totalCar);
 		setTotalMotor(totalMotor);
 		setServiceTime(serviceTime);
 		
 		info = new FeeInfo();
+	}
+	
+	public void setTel(String tel) {
+		this.tel = tel;
+		
+	}
+	public String getTel() {
+			return tel;
+		
 	}
 	
 	public String getOriginalId(){
@@ -159,4 +169,12 @@ public class EachData {
     public String toString() {
         return name + " - " + tel;
     }
+
+	public String getTaiwanCity() {
+		return taiwanCity;
+	}
+
+	public void setTaiwanCity(String taiwanCity) {
+		this.taiwanCity = taiwanCity;
+	}
 }

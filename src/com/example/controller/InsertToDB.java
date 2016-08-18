@@ -46,7 +46,7 @@ public class InsertToDB {
 			preparedStmt.setString(14, parkerDataObject.getServiceTime());
 			preparedStmt.setString(15, parkerDataObject.getfeeInfo());
 			preparedStmt.setString(16, parkerDataObject.getSimpleFeeType());
-			preparedStmt.setString(17, parkerDataObject.getSimpleFee());
+			preparedStmt.setInt(17, parkerDataObject.getSimpleFee());
 			// execute the preparedstatement
 			preparedStmt.execute();
 			System.out.println("insert successful !");
