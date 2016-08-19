@@ -19,17 +19,29 @@ public class InsertToDB {
 		connectionManager.openConnection();
 		connection = connectionManager.connection;
 
-		System.out.println("start connecting...");
+		try {
+			String query= "DELETE FROM `parker_new` WHERE `taiwanCity`='台北市'";
+			PreparedStatement preparedStmt = connection.prepareStatement(query);
+			preparedStmt.execute();
+			preparedStmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("remove 台北資料");
 	}
 
 	public void InserToDB(ParkerDataObject parkerDataObject) {
-		final String query = 
+		
+		 String query = 
 				" insert into parker_new ( originalId, taiwanCity, taiwanArea, name,type,summary,address,xAxis,yAxis,tel,payex,totalCar,totalMotor,serviceTime,feeInfo,simpleFeeType,simpleFee)"
 				+ " values ( ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
 		try {
 
 			PreparedStatement preparedStmt = connection.prepareStatement(query);
-
+			
 			preparedStmt.setString(1, parkerDataObject.getOriginalId());
 			preparedStmt.setString(2, parkerDataObject.getTaiwanCity());
 			preparedStmt.setString(3, parkerDataObject.getTaiwanArea());
@@ -50,6 +62,7 @@ public class InsertToDB {
 			// execute the preparedstatement
 			preparedStmt.execute();
 			System.out.println("insert successful !");
+			preparedStmt.close();
 
 		} catch (SQLException e) {
 			System.out.println("sql connect error");

@@ -17,11 +17,11 @@ public class CoordinateTransform {
 		// TODO: 在此加入建構函式的程式碼
 		//
 	}
-	public double getLatX(){
+	public double getLatY(){
 		return lat;
 	}
 	
-	public double getLonY(){
+	public double getLonX(){
 		return lon;
 	}
 	

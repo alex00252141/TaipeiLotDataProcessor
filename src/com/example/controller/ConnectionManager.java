@@ -6,7 +6,18 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ConnectionManager {
+	private final String localhost = "127.0.0.1";
+	private final String post = "3306";
+	private final String DBName = "testparker";
+	private final String user = "root";
+	private final String password = "";
 	
+	
+	private final String url = "jdbc:mysql://"+localhost+":"+post+"/"+DBName+"?"
+			+ "user="+user
+			+"&password="+password
+			+"&useUnicode=true&characterEncoding=utf-8";
+
 	Connection connection;
 	
 	public ConnectionManager(){
@@ -29,8 +40,9 @@ public class ConnectionManager {
 		  
 		try 
 		{
-		   connection = DriverManager //jdbc:mysql://localhost:3306/data
-		    		.getConnection("jdbc:mysql://localhost:3306/testParker", "root", "");
+			   connection = DriverManager //jdbc:mysql://localhost:3306/data
+		    		.getConnection(url);
+		   
 		    System.out.println("SQL Connection to database established!");
 		         
 		} catch (SQLException e) {

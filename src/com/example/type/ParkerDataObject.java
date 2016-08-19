@@ -1,13 +1,9 @@
 package com.example.type;
 
-import java.util.ArrayList;
 
 import com.example.EachData;
 import com.example.tansfer.CoordinateTransform;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class ParkerDataObject {
 
@@ -28,11 +24,11 @@ public class ParkerDataObject {
 	private String feeInfo;
 	private String simpleFeeType;
 	private int simpleFee;
-	
-	public ParkerDataObject(EachData data, FeeInfo feeInfo ){
+
+	public ParkerDataObject(EachData data, FeeInfo feeInfo) {
 		CoordinateTransform coordinateTransform = new CoordinateTransform();
 		coordinateTransform.TWD97_To_lonlat(Double.valueOf(data.getXAxis()), Double.valueOf(data.getYAxis()));
-		//tw97座標轉換成WGS84 度分秒字串的class 放入座標X、Y 再從裡面呼叫getX、Y
+		// tw97座標轉換成WGS84 度分秒字串的class 放入座標X、Y 再從裡面呼叫getX、Y
 		Gson gson = new Gson();
 
 		setOriginalId(data.getOriginalId());
@@ -42,33 +38,35 @@ public class ParkerDataObject {
 		setType(data.getType());
 		setSummary(data.getSummary());
 		setAddress(data.getAddress());
-		setXAxis(coordinateTransform.getLatX());
-		setYAxis(coordinateTransform.getLonY());
+		setXAxis(coordinateTransform.getLonX());
+		setYAxis(coordinateTransform.getLatY());
 		setTel(data.getTel());
 		setPayex(data.getPayex());
 		setTotalCar(Integer.valueOf(data.getTotalCar()));
 		setTotalMotor(Integer.valueOf(data.getTotalMotor()));
 		setServiceTime(data.getServiceTime());
 		setfeeInfo(gson.toJson(feeInfo));
-		
-		if(feeInfo.getcarFeeInfo().getWeekday().getTimesFee()!=null){
+
+		if (feeInfo.getcarFeeInfo().getWeekday().getTimesFee() != null) {
 			setSimpleFeeType("times");
 			setSimpleFee(Integer.valueOf(feeInfo.getcarFeeInfo().getWeekday().getTimesFee()));
-		}
-		else if(feeInfo.getcarFeeInfo().getWeekday().getIntervalInfo()!=null){
-			setSimpleFeeType("hours");
-			setSimpleFee(Integer.valueOf(feeInfo.getcarFeeInfo().getWeekday().getIntervalInfo().get(0).getTimeChargeParkingFee()));
-		}else{
+		} else if (feeInfo.getcarFeeInfo().getWeekday().getIntervalInfo().isEmpty() != true) {
+			
+			String charge = feeInfo.getcarFeeInfo().getWeekday().getIntervalInfo().get(0).getTimeChargeParkingFee();
+			if (!charge.equals("NULL")) {
+				setSimpleFeeType("hours");
+				setSimpleFee(Integer.valueOf(charge));
+			}
+		} else {
 			setSimpleFeeType(null);
 			setSimpleFee(-1);
 		}
-			
-		
+
 	}
-	
+
 	public ParkerDataObject(String originalId, String taiwanCity, String taiwanArea, String name, String type,
 			String summary, String address, double xAxis, double yAxis, String tel, String payex, int totalCar,
-			int totalMotor, String serviceTime, String feeInfo ,String simpleFeeType ,int simpleFee) {
+			int totalMotor, String serviceTime, String feeInfo, String simpleFeeType, int simpleFee) {
 		System.out.println(originalId);
 		setOriginalId(originalId);
 		setTaiwanCity(taiwanCity);

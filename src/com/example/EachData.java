@@ -7,7 +7,7 @@ public class EachData {
 	@SerializedName("id")
 	private String originalId;
 	
-	private String taiwanCity = "台北市";//Preset
+	private final String taiwanCity = "台北市" ;//Preset
 	
 	@SerializedName("area")
 	private String taiwanArea;
@@ -54,7 +54,6 @@ public class EachData {
 		setTotalCar(totalCar);
 		setTotalMotor(totalMotor);
 		setServiceTime(serviceTime);
-		
 		info = new FeeInfo();
 	}
 	
@@ -175,6 +174,6 @@ public class EachData {
 	}
 
 	public void setTaiwanCity(String taiwanCity) {
-		this.taiwanCity = taiwanCity;
+		//this.taiwanCity = taiwanCity;
 	}
 }
